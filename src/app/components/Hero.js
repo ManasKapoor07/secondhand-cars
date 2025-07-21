@@ -2,15 +2,24 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import car1 from '../../car1.jpg';
+import car1 from "../../car1.jpg";
+import { useEffect } from "react";
+import { useLazyGetCarListQuery } from "@/redux/api/all-api";
 
 export default function HeroSection() {
-  const consultantNumber = '9837077026';
-  const prefilledText = encodeURIComponent('Hello, I would like to know more about your car listings.');
+  const consultantNumber = "9837027172";
+  const prefilledText = encodeURIComponent(
+    "Hello, I would like to know more about your car listings."
+  );
 
   const handleWhatsAppClick = () => {
-    window.open(`https://wa.me/${consultantNumber}?text=${prefilledText}`, '_blank');
+    window.open(
+      `https://wa.me/${consultantNumber}?text=${prefilledText}`,
+      "_blank"
+    );
   };
+
+
 
   return (
     <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-10 px-6 md:px-20 overflow-hidden">
@@ -37,10 +46,13 @@ export default function HeroSection() {
           className="space-y-2 max-w-xl"
         >
           <h1 className="text-4xl md:text-4xl font-bold text-blue-950 leading-tight">
-            Find your dream car<br />at great prices, from home.
+            Find your dream car
+            <br />
+            at great prices, from home.
           </h1>
           <p className="text-gray-700 text-base md:text-lg">
-            Discover top-quality cars with virtual tours and expert guidance — all online.
+            Discover top-quality cars with virtual tours and expert guidance —
+            all online.
           </p>
 
           <div className="flex gap-4 mt-6 flex-wrap">

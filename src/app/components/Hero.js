@@ -2,9 +2,16 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import car1 from '../../car1.jpg'
+import car1 from '../../car1.jpg';
 
 export default function HeroSection() {
+  const consultantNumber = '9837077026';
+  const prefilledText = encodeURIComponent('Hello, I would like to know more about your car listings.');
+
+  const handleWhatsAppClick = () => {
+    window.open(`https://wa.me/${consultantNumber}?text=${prefilledText}`, '_blank');
+  };
+
   return (
     <section className="bg-gradient-to-r from-blue-50 to-blue-100 py-10 px-6 md:px-20 overflow-hidden">
       <motion.div
@@ -40,7 +47,10 @@ export default function HeroSection() {
             <button className="bg-blue-900 text-white px-6 py-3 rounded-xl text-sm font-semibold shadow-md hover:bg-blue-800 transition">
               Explore Cars
             </button>
-            <button className="bg-white border border-blue-900 text-blue-900 px-6 py-3 rounded-xl text-sm font-semibold hover:bg-blue-50 transition">
+            <button
+              className="bg-white border border-blue-900 text-blue-900 px-6 py-3 rounded-xl text-sm font-semibold hover:bg-blue-50 transition"
+              onClick={handleWhatsAppClick}
+            >
               Talk to Consultant
             </button>
           </div>

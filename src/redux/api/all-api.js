@@ -4,7 +4,7 @@ const allApi = apiReducer.injectEndpoints({
   endpoints: (builder) => ({
     getCarList: builder.query({
       query: (params) => ({
-        url: "/api/cars",
+        url: "/cars",
         method: "GET",
         body: params,
         headers: {

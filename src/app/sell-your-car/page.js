@@ -84,18 +84,17 @@ export default function SellYourCar() {
       formData.append("files", file);
     });
 
-    await sendDetails(formData);
-
-    setSubmitted(true);
-    setTimeout(() => router.push("/"), 2000);
+    await sendDetails(formData).then((res) => {
+      if (res.data) {
+        setSubmitted(true);
+        setTimeout(() => router.push("/"), 2000);
+      }
+    });
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black px-6 py-5 md:px-16 text-white">
-      <Link
-        href="/"
-        className="font-extrabold text-yellow-400 hover:underline"
-      >
+      <Link href="/" className="font-extrabold text-yellow-400 hover:underline">
         <ArrowBigLeft />
       </Link>
       <motion.div

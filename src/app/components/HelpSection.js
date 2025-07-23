@@ -40,7 +40,7 @@ export default function HelpSection() {
           <span className="block w-20 h-1 bg-amber-500 mt-3 mx-auto rounded-full animate-pulse" />
         </h2>
         <p className="text-gray-400 mt-3 text-sm md:text-base">
-          Partnered with India's leading vehicle financing companies
+          Partnered with India&apos;s leading vehicle financing companies
         </p>
       </div>
 

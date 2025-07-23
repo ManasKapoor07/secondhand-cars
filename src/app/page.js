@@ -14,7 +14,7 @@ import ContactUs from "./components/Contact";
 
 const menuItems = [
   { name: "Home", to: "hero" },
-  { name: "Help", to: "help" },
+  { name: "Partners", to: "partners" },
   { name: "Cars", to: "cars" },
   { name: "Contact", to: "contact" },
 ];
@@ -23,15 +23,14 @@ export default function HomeMain() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex font-sans min-h-screen">
-
+    <div className="flex font-sans min-h-screen bg-black">
       {/* Toggle Button */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed top-4 left-4 z-50 p-2 bg-white rounded-md shadow-md"
+          className="fixed top-4 left-4 z-50 p-2 bg-white/10 border border-white/20 backdrop-blur-md rounded-md shadow-lg"
         >
-          <Menu className="w-6 h-6 text-gray-700" />
+          <Menu className="w-6 h-6 text-white" />
         </button>
       )}
 
@@ -40,12 +39,12 @@ export default function HomeMain() {
         initial={{ x: -260 }}
         animate={{ x: open ? 0 : -260 }}
         transition={{ type: "spring", stiffness: 120, damping: 18 }}
-        className="fixed top-0 left-0 h-full w-60 bg-white z-50 shadow-lg px-4 py-6"
+        className="fixed top-0 left-0 h-full w-60 bg-neutral-900 text-white z-50 shadow-xl px-4 py-6 border-r border-white/10"
       >
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-blue-700 font-bold text-lg">Menu</h2>
+          <h2 className="text-amber-400 font-bold text-lg tracking-widest">MENU</h2>
           <button onClick={() => setOpen(false)}>
-            <X className="w-5 h-5 text-gray-600 hover:text-red-500" />
+            <X className="w-5 h-5 text-gray-300 hover:text-red-500" />
           </button>
         </div>
 
@@ -59,8 +58,8 @@ export default function HomeMain() {
                 offset={-70}
                 duration={500}
                 onClick={() => setOpen(false)}
-                activeClass="text-blue-700 font-bold"
-                className="cursor-pointer px-2 py-1 hover:text-blue-600 text-gray-500 transition-all duration-200"
+                activeClass="text-amber-400 font-bold"
+                className="cursor-pointer px-2 py-1 text-gray-300 hover:text-amber-400 transition-all duration-200"
               >
                 {item.name}
               </ScrollLink>
@@ -70,11 +69,11 @@ export default function HomeMain() {
       </motion.aside>
 
       {/* Main Content */}
-      <div className="flex-1 w-full ml-0 md:ml-0  bg-gradient-to-br from-white/60 via-white/70 to-blue-200/90 backdrop-brightness-90">
+      <div className="flex-1 w-full ml-0 md:ml-0 bg-gradient-to-br from-neutral-950 via-black to-neutral-900 text-white">
         <Element name="hero" className="scroll-mt-16">
           <HeroSection />
         </Element>
-        <Element name="help" className="scroll-mt-16">
+        <Element name="partners" className="scroll-mt-16">
           <HelpSection />
         </Element>
         <Element name="cars" className="scroll-mt-16">

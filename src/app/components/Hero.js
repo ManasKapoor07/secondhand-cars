@@ -5,6 +5,8 @@ import { FaWhatsapp } from "react-icons/fa";
 import { CheckCircledIcon } from "@radix-ui/react-icons";
 import Image from "next/image";
 import car1 from "../../car1.jpg";
+import { SendIcon, ShellIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function HeroSection() {
   const consultantNumber = "9837027172";
@@ -95,6 +97,18 @@ export default function HeroSection() {
             </motion.span>
             Talk to Consultant
           </button>
+          <Link href="/sell-your-car">
+            <button className="flex items-center gap-3 border border-amber-500 text-amber-400 bg-transparent px-6 py-3 rounded-full text-sm font-semibold hover:bg-amber-500 hover:text-black hover:scale-105 transition-all duration-200 shadow-md">
+              <motion.span
+                initial={{ rotate: 0 }}
+                whileHover={{ rotate: [0, -10, 10, 0] }}
+                transition={{ duration: 0.6 }}
+              >
+                <SendIcon className="text-green-400 text-lg" />
+              </motion.span>
+              Sell your car
+            </button>
+          </Link>
         </motion.div>
 
         {/* Features */}

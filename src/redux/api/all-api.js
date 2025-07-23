@@ -13,7 +13,14 @@ const allApi = apiReducer.injectEndpoints({
         },
       }),
     }),
+    sendWhatsapp: builder.mutation({
+      query: (formData) => ({
+        url: "/api/send-to-whatsapp",
+        method: "POST",
+        body: formData,
+      }),
+    }),
   }),
 });
 
-export const { useLazyGetCarListQuery } = allApi;
+export const { useLazyGetCarListQuery, useSendWhatsappMutation } = allApi;

@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const BASE_URL = "https://mbc-backend-ep3l.onrender.com/";
+export const BASE_URL = "http://localhost:8000";
 
 export const apiReducer = createApi({
   reducerPath: "rootApi",

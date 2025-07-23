@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
 const partners = [
   {
@@ -33,13 +32,13 @@ const partners = [
 
 export default function HelpSection() {
   return (
-    <section className="relative z-10 py-14 px-4 sm:px-10 bg-gradient-to-b from-[#1a1a1a] to-black">
+    <section className="py-16 px-4 sm:px-10 bg-white">
       <div className="max-w-6xl mx-auto text-center mb-12">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-white relative inline-block">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-sky-600">
           Trusted Finance Partners
-          <span className="block w-20 h-1 bg-amber-500 mt-3 mx-auto rounded-full animate-pulse" />
         </h2>
-        <p className="text-gray-400 mt-3 text-sm md:text-base">
+        <div className="w-20 h-1 bg-sky-500 mt-3 mx-auto rounded-full" />
+        <p className="text-gray-600 mt-4 text-base md:text-lg">
           Partnered with India&apos;s leading vehicle financing companies
         </p>
       </div>
@@ -52,14 +51,14 @@ export default function HelpSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:translate-y-[-4px] hover:shadow-[0_0_25px_#fbbf24] transition-all duration-300 ease-out"
+            className="bg-white rounded-xl p-4 flex flex-col items-center justify-center shadow-md hover:shadow-lg transition-all duration-300"
           >
             <motion.img
               src={partner.image}
               alt={partner.name}
               width={80}
               height={80}
-              className="object-contain h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300"
+              className="object-contain h-16 w-auto transition-all duration-300"
               animate={{
                 scale: [1, 1.05, 1],
               }}
@@ -69,7 +68,7 @@ export default function HelpSection() {
                 ease: "easeInOut",
               }}
             />
-            <p className="text-sm text-white mt-3 text-center font-medium tracking-wide">
+            <p className="text-sm text-gray-700 mt-3 text-center font-medium tracking-wide">
               {partner.name}
             </p>
           </motion.div>

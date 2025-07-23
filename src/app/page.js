@@ -1,8 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link as ScrollLink, Element } from "react-scroll";
 
@@ -11,65 +9,47 @@ import CarCarousel from "./components/CarCarousel";
 import HelpSection from "./components/HelpSection";
 import HeroSection from "./components/Hero";
 import ContactUs from "./components/Contact";
+import FaqSection from "./components/FaqSection";
 
 const menuItems = [
   { name: "Home", to: "hero" },
   { name: "Partners", to: "partners" },
   { name: "Cars", to: "cars" },
+  { name: "FAQ", to: "faq" },
   { name: "Contact", to: "contact" },
+
 ];
 
 export default function HomeMain() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <div className="flex font-sans min-h-screen bg-black">
-      {/* Toggle Button */}
-      {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          className="fixed top-4 left-4 z-50 p-2 bg-white/10 border border-white/20 backdrop-blur-md rounded-md shadow-lg"
-        >
-          <Menu className="w-6 h-6 text-white" />
-        </button>
-      )}
-
-      {/* Sidebar */}
-      <motion.aside
-        initial={{ x: -260 }}
-        animate={{ x: open ? 0 : -260 }}
-        transition={{ type: "spring", stiffness: 120, damping: 18 }}
-        className="fixed top-0 left-0 h-full w-60 bg-neutral-900 text-white z-50 shadow-xl px-4 py-6 border-r border-white/10"
-      >
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-amber-400 font-bold text-lg tracking-widest">MENU</h2>
-          <button onClick={() => setOpen(false)}>
-            <X className="w-5 h-5 text-gray-300 hover:text-red-500" />
-          </button>
-        </div>
-
-        <NavigationMenu.Root orientation="vertical" className="flex flex-col gap-4">
-          {menuItems.map((item, idx) => (
-            <NavigationMenu.Item key={idx}>
+    <div className="font-sans bg-white text-gray-900 min-h-screen">
+      {/* Top Navigation Bar */}
+      <header className="w-full shadow-sm fixed top-0 z-50 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <h1 className="text-xl font-bold text-sky-600 tracking-wide">
+            Maa Bhawani Car Bazar
+          </h1>
+          <nav className="hidden sm:flex gap-6 text-sm font-medium text-gray-700">
+            {menuItems.map((item, idx) => (
               <ScrollLink
+                key={idx}
                 to={item.to}
                 spy={true}
                 smooth={true}
-                offset={-70}
+                offset={-80}
                 duration={500}
-                onClick={() => setOpen(false)}
-                activeClass="text-amber-400 font-bold"
-                className="cursor-pointer px-2 py-1 text-gray-300 hover:text-amber-400 transition-all duration-200"
+                activeClass="text-sky-600 font-semibold"
+                className="cursor-pointer hover:text-sky-500 transition-colors duration-200"
               >
                 {item.name}
               </ScrollLink>
-            </NavigationMenu.Item>
-          ))}
-        </NavigationMenu.Root>
-      </motion.aside>
+            ))}
+          </nav>
+        </div>
+      </header>
 
-      {/* Main Content */}
-      <div className="flex-1 w-full ml-0 md:ml-0 bg-gradient-to-br from-neutral-950 via-black to-neutral-900 text-white">
+      {/* Content Sections */}
+      <main>
         <Element name="hero" className="scroll-mt-16">
           <HeroSection />
         </Element>
@@ -79,10 +59,13 @@ export default function HomeMain() {
         <Element name="cars" className="scroll-mt-16">
           <CarCarousel />
         </Element>
+        <Element name="faq" className="scroll-mt-16">
+          <FaqSection />
+        </Element>
         <Element name="contact" className="scroll-mt-16">
           <ContactUs />
         </Element>
-      </div>
+      </main>
     </div>
   );
 }

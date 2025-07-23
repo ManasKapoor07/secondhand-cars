@@ -1,120 +1,91 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { FaStar } from "react-icons/fa";
+import Avatar from "boring-avatars";
 
-import { useLazyGetCarListQuery } from "@/redux/api/all-api";
-import { Skeleton } from "./Skeleton";
+const testimonials = [
+  {
+    name: "Rohit Bisht",
+    title: "Engineer, Dehradun",
+    rating: 5,
+    quote:
+      "Selling my car from Haldwani was incredibly smooth. The pickup was doorstep and the payment was instant. Highly recommended!",
+  },
+  {
+    name: "Aarti Joshi",
+    title: "Teacher, Haldwani",
+    rating: 5,
+    quote:
+      "The team was super professional. They handled everything, including paperwork and RC transfer. Best car-selling experience I've had in Haldwani.",
+  },
+  {
+    name: "Nikhil Rawat",
+    title: "Hotel Manager, Rishikesh",
+    rating: 4,
+    quote:
+      "The service is great for people in smaller towns. Even in Rishikesh, I had my car sold within 2 days. Hassle-free and safe.",
+  },
+  {
+    name: "Neha Thakur",
+    title: "Marketing Executive, Rudrapur",
+    rating: 5,
+    quote:
+      "Super fast and trustworthy platform. Living in Rudrapur, I didn’t expect it to be this easy. No hidden fees or delays!",
+  },
+  {
+    name: "Ankit Negi",
+    title: "Banker, Haridwar",
+    rating: 5,
+    quote:
+      "From car inspection to final sale, everything was managed professionally. It’s the go-to place for selling cars in Haldwani.",
+  },
+  {
+    name: "Pooja Pant",
+    title: "Bank PO, Nainital",
+    rating: 4,
+    quote:
+      "Even from the hills of Nainital, they made selling my car seamless. Everything was arranged quickly and the payment came on time.",
+  },
+];
 
-export default function CarCarousel() {
-  const prevRef = useRef(null);
-  const nextRef = useRef(null);
-
-  const [getList, { isLoading, data }] = useLazyGetCarListQuery();
-
-  useEffect(() => {
-    getList();
-  }, []);
-
+export default function Testimonials() {
   return (
-    <section className="px-4 md:px-20 py-14 bg-gradient-to-br from-black via-gray-900 to-gray-950 text-white">
-      {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl font-extrabold tracking-tight">
-          🔥 Featured Cars for You
-        </h2>
-        <div className="flex gap-2">
-          <button
-            ref={prevRef}
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition"
+    <section className="px-4 md:px-20 py-16 bg-gray-50 text-gray-900">
+      <h2 className="text-3xl font-bold text-center mb-10 text-sky-600">
+        What Our Customers Say
+      </h2>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {testimonials.map((t, i) => (
+          <motion.div
+            key={i}
+            whileHover={{ scale: 1.02 }}
+            className="bg-white rounded-xl p-6 shadow-md border border-gray-200"
           >
-            <FaChevronLeft className="text-white" />
-          </button>
-          <button
-            ref={nextRef}
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition"
-          >
-            <FaChevronRight className="text-white" />
-          </button>
-        </div>
-      </div>
-
-      {/* Loader Skeleton */}
-      {isLoading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[...Array(3)].map((_, i) => (
-            <Skeleton key={i} className="h-64 rounded-xl w-full" />
-          ))}
-        </div>
-      ) : (
-        <Swiper
-          modules={[Navigation, Autoplay]}
-          loop={true}
-          spaceBetween={20}
-          slidesPerView={1.2}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          autoplay={{
-            delay: 3500,
-            pauseOnMouseEnter: true,
-            disableOnInteraction: false,
-          }}
-          onBeforeInit={(swiper) => {
-            swiper.params.navigation.prevEl = prevRef.current;
-            swiper.params.navigation.nextEl = nextRef.current;
-          }}
-          breakpoints={{
-            768: { slidesPerView: 3 },
-          }}
-        >
-          {data?.slice(0, 12).map((car, i) => (
-            <SwiperSlide key={car.id || i}>
-              <div className="rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 hover:border-white/20 hover:shadow-lg transition-all overflow-hidden">
-                {/* Image */}
-                <div className="relative w-full h-48">
-                  <img
-                    src={car.image_url || "/placeholder.jpg"}
-                    alt={car.title || "Used Car"}
-                    className="object-cover w-full h-full"
-                  />
-                </div>
-
-                {/* Details */}
-                <div className="p-4 space-y-1">
-                  <h3 className="text-lg font-semibold text-white truncate">
-                    {car.title || "Untitled Car"}
-                  </h3>
-                  <div className="text-sm text-gray-300">
-                    Year: {car.year || "N/A"}
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mt-2 text-sm">
-                    <span className="bg-blue-600/20 text-blue-400 px-2 py-1 rounded-full text-xs font-semibold">
-                      ₹ {car.price?.toLocaleString() || "—"}
-                    </span>
-                    <span className="bg-emerald-600/20 text-emerald-400 px-2 py-1 rounded-full text-xs font-semibold">
-                      {car.fuel_type || "Fuel N/A"}
-                    </span>
-                    <span className="bg-pink-600/20 text-pink-400 px-2 py-1 rounded-full text-xs font-semibold">
-                      {car.transmission || "Transmission N/A"}
-                    </span>
-                    <span className="bg-yellow-600/20 text-yellow-300 px-2 py-1 rounded-full text-xs font-semibold">
-                      Model: {car.year || "N/A"}
-                    </span>
-                  </div>
-                </div>
+            <div className="flex items-center gap-3 mb-4">
+              <Avatar
+                size={40}
+                name={t.name}
+                variant="beam"
+                colors={["#6EE7B7", "#3B82F6", "#9333EA", "#F59E0B", "#EF4444"]}
+              />
+              <div>
+                <div className="font-semibold text-gray-900">{t.name}</div>
+                <div className="text-sm text-gray-500">{t.title}</div>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
+            </div>
+
+            <div className="flex items-center mb-2 gap-1 text-yellow-500 text-sm">
+              {[...Array(t.rating)].map((_, idx) => (
+                <FaStar key={idx} />
+              ))}
+            </div>
+
+            <p className="text-gray-700 text-sm leading-relaxed">“{t.quote}”</p>
+          </motion.div>
+        ))}
+      </div>
     </section>
   );
 }

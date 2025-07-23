@@ -2,6 +2,8 @@
 
 import { useSendWhatsappMutation } from "@/redux/api/all-api";
 import { motion } from "framer-motion";
+import { ArrowBigLeft, ArrowBigRightIcon } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -11,15 +13,15 @@ const initialForm = {
   email: "",
   city: "",
   registrationNumber: "",
-  rcAvailable: "",
-  insuranceAvailable: "",
+  rcAvailable: "No",
+  insuranceAvailable: "No",
   carModel: "",
   variant: "",
   fuelType: "",
   ownership: "",
   kilometersDriven: "",
   expectedPrice: "",
-  conditionScale: "",
+  conditionScale: "5",
   damageRemarks: "",
   files: [],
 };
@@ -31,20 +33,18 @@ export default function SellYourCar() {
   const [logBody, setLogBody] = useState(null);
   const router = useRouter();
 
-  // RTK Query mutation
-  const [sendDetails, { isLoading, data, error }] = useSendWhatsappMutation();
+  const [sendDetails, { isLoading }] = useSendWhatsappMutation();
 
   function handleInput(e) {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: type === "number" ? value : value,
+      [name]: value,
     }));
   }
 
   function handleFiles(e) {
     const files = Array.from(e.target.files);
-    // For our log and backend: use file.name, real upload? Use file blobs.
     setForm((prev) => ({
       ...prev,
       files: files,
@@ -55,34 +55,31 @@ export default function SellYourCar() {
     e.preventDefault();
 
     const body = {
-      name: form.name || "",
-      phone: form.phone || "",
-      email: form.email || "",
-      city: form.city || "",
-      registrationNumber: form.registrationNumber || "",
-      rcAvailable: form.rcAvailable || "",
-      insuranceAvailable: form.insuranceAvailable || "",
-      carModel: form.carModel || "",
-      variant: form.variant || "",
-      fuelType: form.fuelType || "",
-      ownership: form.ownership || "",
-      kilometersDriven: form.kilometersDriven || "",
-      expectedPrice: form.expectedPrice || "",
-      conditionScale: form.conditionScale || "",
-      damageRemarks: form.damageRemarks || "",
-      files: [], // not needed here for sending
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
+      city: form.city,
+      registrationNumber: form.registrationNumber,
+      rcAvailable: form.rcAvailable,
+      insuranceAvailable: form.insuranceAvailable,
+      carModel: form.carModel,
+      variant: form.variant,
+      fuelType: form.fuelType,
+      ownership: form.ownership,
+      kilometersDriven: form.kilometersDriven,
+      expectedPrice: form.expectedPrice,
+      conditionScale: form.conditionScale,
+      damageRemarks: form.damageRemarks,
+      files: [],
     };
 
     setLogBody(body);
 
     const formData = new FormData();
-
-    // Append all text fields
     Object.entries(body).forEach(([key, value]) => {
       formData.append(key, value);
     });
 
-    // Append binary files
     form.files.forEach((file) => {
       formData.append("files", file);
     });
@@ -90,20 +87,32 @@ export default function SellYourCar() {
     await sendDetails(formData);
 
     setSubmitted(true);
-    
-    setTimeout(() => router.push('/'), 2000);
+    setTimeout(() => router.push("/"), 2000);
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black px-6 py-12 md:px-24 text-white">
-      <motion.h1
-        className="text-3xl md:text-5xl font-extrabold mb-10 text-center"
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black px-6 py-5 md:px-16 text-white">
+      <Link
+        href="/"
+        className="font-extrabold text-yellow-400 hover:underline"
+      >
+        <ArrowBigLeft />
+      </Link>
+      <motion.div
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
+        className="text-center mb-10"
       >
-        Sell Your Car with Confidence 🚗
-      </motion.h1>
+        <h1 className="text-2xl md:text-4xl font-extrabold mb-4">
+          Sell Your Car with Confidence — Fast, Easy & Hassle-Free!
+        </h1>
+        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
+          Get the best price for your used car without stepping out of your
+          home. Upload photos, share your details, and we&apos;ll handle the
+          rest — from valuation to pickup, all at your convenience.
+        </p>
+      </motion.div>
 
       <motion.div
         className="bg-white/10 backdrop-blur-lg rounded-xl p-6 md:p-10 max-w-4xl mx-auto shadow-2xl"
@@ -121,49 +130,66 @@ export default function SellYourCar() {
           </motion.div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6 text-white">
-            {/* Name */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Full Name
-              </label>
-              <input
-                type="text"
-                required
-                name="name"
-                value={form.name}
-                onChange={handleInput}
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                placeholder="John Doe"
-              />
+            {/* Personal Details */}
+            <h2 className="text-xl font-semibold">Personal Details</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  value={form.name}
+                  onChange={handleInput}
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
+                  placeholder="John Doe"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  required
+                  value={form.phone}
+                  onChange={handleInput}
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
+                  placeholder="98xxxxxx72"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleInput}
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
+                  placeholder="youremail@example.com"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium">City</label>
+                <input
+                  type="text"
+                  name="city"
+                  required
+                  value={form.city}
+                  onChange={handleInput}
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
+                  placeholder="Haldwani"
+                />
+              </div>
             </div>
-            {/* Phone */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                required
-                name="phone"
-                value={form.phone}
-                onChange={handleInput}
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                placeholder="98xxxxxx72"
-              />
-            </div>
-            {/* Email */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleInput}
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                placeholder="youremail@example.com"
-              />
-            </div>
-            {/* Car Info */}
+
+            <hr className="my-6 border-gray-600" />
+
+            {/* Car Details */}
+            <h2 className="text-xl font-semibold">Car Details</h2>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block mb-2 text-sm font-medium">
@@ -176,7 +202,7 @@ export default function SellYourCar() {
                   value={form.carModel}
                   onChange={handleInput}
                   placeholder="Maruti Suzuki Swift"
-                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
                 />
               </div>
               <div>
@@ -189,7 +215,7 @@ export default function SellYourCar() {
                   value={form.variant}
                   onChange={handleInput}
                   placeholder="2020"
-                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
                 />
               </div>
               <div>
@@ -198,124 +224,129 @@ export default function SellYourCar() {
                 </label>
                 <input
                   type="number"
+                  required
                   name="kilometersDriven"
                   value={form.kilometersDriven}
                   onChange={handleInput}
-                  required
                   placeholder="30000"
-                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
                 />
               </div>
               <div>
-                <label className="block mb-2 text-sm font-medium">City</label>
+                <label className="block mb-2 text-sm font-medium">
+                  Registration Number
+                </label>
                 <input
                   type="text"
-                  name="city"
-                  value={form.city}
+                  name="registrationNumber"
+                  value={form.registrationNumber}
                   onChange={handleInput}
-                  required
-                  placeholder="Haldwani"
-                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  placeholder="UK07AB1234"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
                 />
               </div>
-            </div>
-            {/* Registration Number */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Registration Number
-              </label>
-              <input
-                type="text"
-                name="registrationNumber"
-                value={form.registrationNumber}
-                onChange={handleInput}
-                placeholder="UK07AB1234"
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-            </div>
-            {/* RC Available */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                RC Available?
-              </label>
-              <input
-                type="text"
-                name="rcAvailable"
-                value={form.rcAvailable}
-                onChange={handleInput}
-                placeholder="Yes/No"
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-            </div>
-            {/* Insurance Available */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Insurance Available?
-              </label>
-              <input
-                type="text"
-                name="insuranceAvailable"
-                value={form.insuranceAvailable}
-                onChange={handleInput}
-                placeholder="Yes/No"
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-            </div>
-            {/* Fuel Type */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Fuel Type
-              </label>
-              <input
-                type="text"
-                name="fuelType"
-                value={form.fuelType}
-                onChange={handleInput}
-                placeholder="Petrol/Diesel/CNG..."
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-            </div>
-            {/* Ownership */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Ownership
-              </label>
-              <input
-                type="text"
-                name="ownership"
-                value={form.ownership}
-                onChange={handleInput}
-                placeholder="First/Second/Third..."
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-            </div>
-            {/* Condition Scale */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Condition Scale (1-10)
-              </label>
-              <input
-                type="text"
-                name="conditionScale"
-                value={form.conditionScale}
-                onChange={handleInput}
-                placeholder="8"
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-            </div>
-            {/* Damage Remarks */}
-            <div>
-              <label className="block mb-2 text-sm font-medium">
-                Damage Remarks
-              </label>
-              <input
-                type="text"
-                name="damageRemarks"
-                value={form.damageRemarks}
-                onChange={handleInput}
-                placeholder="No Major Damage"
-                className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
+
+              {/* RC Checkbox */}
+              <div className="flex items-center space-x-3 mt-4">
+                <input
+                  id="rcAvailable"
+                  type="checkbox"
+                  checked={form.rcAvailable === "Yes"}
+                  onChange={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      rcAvailable: prev.rcAvailable === "Yes" ? "No" : "Yes",
+                    }))
+                  }
+                  className="w-5 h-5 text-yellow-400 bg-gray-700 border-gray-500 rounded"
+                />
+                <label htmlFor="rcAvailable" className="text-sm font-medium">
+                  RC Available
+                </label>
+              </div>
+
+              {/* Insurance Checkbox */}
+              <div className="flex items-center space-x-3 mt-4">
+                <input
+                  id="insuranceAvailable"
+                  type="checkbox"
+                  checked={form.insuranceAvailable === "Yes"}
+                  onChange={() =>
+                    setForm((prev) => ({
+                      ...prev,
+                      insuranceAvailable:
+                        prev.insuranceAvailable === "Yes" ? "No" : "Yes",
+                    }))
+                  }
+                  className="w-5 h-5 text-yellow-400 bg-gray-700 border-gray-500 rounded"
+                />
+                <label
+                  htmlFor="insuranceAvailable"
+                  className="text-sm font-medium"
+                >
+                  Insurance Available
+                </label>
+              </div>
+
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Fuel Type
+                </label>
+                <input
+                  type="text"
+                  name="fuelType"
+                  value={form.fuelType}
+                  onChange={handleInput}
+                  placeholder="Petrol/Diesel/CNG..."
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
+                />
+              </div>
+              <div>
+                <label className="block mb-2 text-sm font-medium">
+                  Ownership
+                </label>
+                <input
+                  type="text"
+                  name="ownership"
+                  value={form.ownership}
+                  onChange={handleInput}
+                  placeholder="First/Second/Third..."
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
+                />
+              </div>
+
+              {/* Condition Scale Slider */}
+              <div className="col-span-2">
+                <label className="block mb-2 text-sm font-medium">
+                  Condition Scale
+                </label>
+                <input
+                  type="range"
+                  name="conditionScale"
+                  min="1"
+                  max="10"
+                  value={form.conditionScale}
+                  onChange={handleInput}
+                  className="w-full"
+                />
+                <p className="text-sm text-gray-300 mt-1">
+                  Condition: {form.conditionScale}/10
+                </p>
+              </div>
+
+              <div className="col-span-2">
+                <label className="block mb-2 text-sm font-medium">
+                  Damage Remarks
+                </label>
+                <input
+                  type="text"
+                  name="damageRemarks"
+                  value={form.damageRemarks}
+                  onChange={handleInput}
+                  placeholder="No Major Damage"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
+                />
+              </div>
             </div>
 
             {/* Photos */}
@@ -332,9 +363,9 @@ export default function SellYourCar() {
               />
             </div>
 
-            {/* Price + Negotiable */}
-            <div className="grid md:grid-cols-2 gap-6 items-end">
-              <div>
+            {/* Expected Price */}
+            <div className="grid md:grid-cols-2 gap-6 items-center ">
+              <div className="mb-5">
                 <label className="block mb-2 text-sm font-medium">
                   Expected Price (in ₹)
                 </label>
@@ -345,7 +376,7 @@ export default function SellYourCar() {
                   value={form.expectedPrice}
                   onChange={handleInput}
                   placeholder="500000"
-                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  className="w-full px-4 py-2 rounded-md bg-white/20 border border-gray-500 placeholder-gray-300"
                 />
               </div>
               <div className="flex items-center space-x-3 mt-6 md:mt-0">
@@ -354,7 +385,7 @@ export default function SellYourCar() {
                   type="checkbox"
                   checked={negotiable}
                   onChange={() => setNegotiable(!negotiable)}
-                  className="w-5 h-5 text-yellow-400 bg-gray-700 border-gray-500 rounded focus:ring-yellow-400"
+                  className="w-5 h-5 text-yellow-400 bg-gray-700 border-gray-500 rounded"
                 />
                 <label htmlFor="negotiable" className="text-sm font-medium">
                   Price Negotiable

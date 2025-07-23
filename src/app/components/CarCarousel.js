@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules"; // ⬅️ Import Autoplay
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -21,27 +21,29 @@ export default function CarCarousel() {
   }, []);
 
   return (
-    <section className="px-4 md:px-20 py-8 bg-[#f7f9fc]">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl md:text-2xl font-semibold text-black">
-          Our Car Collection
+    <section className="px-4 md:px-20 py-12 bg-white">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-2xl md:text-3xl font-bold text-blue-900">
+          Explore Our Car Collection
         </h2>
         <div className="flex gap-2">
           <button
             ref={prevRef}
-            className=" px-3 py-1 rounded text-blue-700 font-semibold hover:bg-gray-300 transition"
+            className="px-3 py-1.5 rounded-full border border-blue-300 bg-white text-blue-700 hover:bg-blue-100 transition"
           >
             ←
           </button>
           <button
             ref={nextRef}
-            className=" text-blue-700 font-semibold px-3 py-1 rounded hover:bg-gray-300 transition"
+            className="px-3 py-1.5 rounded-full border border-blue-300 bg-white text-blue-700 hover:bg-blue-100 transition"
           >
             →
           </button>
         </div>
       </div>
 
+      {/* Loader Skeleton */}
       {isLoading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {[...Array(3)].map((_, i) => (
@@ -59,10 +61,9 @@ export default function CarCarousel() {
             nextEl: nextRef.current,
           }}
           autoplay={{
-            delay: 2000, // ⬅️ 3 seconds delay
-            pauseOnMouseEnter : true,
-            disableOnInteraction: true,
-            
+            delay: 3000,
+            pauseOnMouseEnter: true,
+            disableOnInteraction: false,
           }}
           onBeforeInit={(swiper) => {
             swiper.params.navigation.prevEl = prevRef.current;
@@ -74,33 +75,40 @@ export default function CarCarousel() {
         >
           {data?.slice(0, 12).map((car, i) => (
             <SwiperSlide key={car.id || i}>
-              <div className="bg-white rounded-xl shadow p-4 transition hover:scale-105">
-                <div className="relative w-full h-44 rounded overflow-hidden mb-3">
+              <div className=" rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden mb-4">
+                {/* Image */}
+                <div className="relative w-full h-48">
                   <img
                     src={car.image_url || "/placeholder.jpg"}
                     alt={car.title || "Used Car"}
                     className="object-cover w-full h-full"
                   />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 truncate">
-                  {car.title || "Untitled Car"}
-                </h3>
-                <p className="text-sm text-gray-600 mb-1">
-                  Year: {car.year || "N/A"}
-                </p>
-                <div className="flex flex-wrap gap-2 text-sm text-gray-700 mt-2">
-                  <span className="font-medium">
-                    ₹ {car.price?.toLocaleString() || "—"}
-                  </span>
-                  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
-                    {car.fuel_type || "Fuel N/A"}
-                  </span>
-                  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
-                    {car.transmission || "N/A"}
-                  </span>
-                  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs font-semibold">
-                    Model: {car.year || "N/A"}
-                  </span>
+
+                {/* Details */}
+                <div className="p-4 space-y-2">
+                  <h3 className="text-lg font-semibold text-gray-800 line-clamp-1">
+                    {car.title || "Untitled Car"}
+                  </h3>
+
+                  <div className="text-sm text-gray-600">
+                    Year: {car.year || "N/A"}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 text-sm mt-2">
+                    <span className="font-semibold text-blue-800">
+                      ₹ {car.price?.toLocaleString() || "—"}
+                    </span>
+                    <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-xs font-medium">
+                      {car.fuel_type || "Fuel N/A"}
+                    </span>
+                    <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-xs font-medium">
+                      {car.transmission || "N/A"}
+                    </span>
+                    <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full text-xs font-medium">
+                      Model: {car.year || "N/A"}
+                    </span>
+                  </div>
                 </div>
               </div>
             </SwiperSlide>

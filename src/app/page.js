@@ -23,7 +23,7 @@ export default function HomeMain() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex font-sans bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen">
+    <div className="flex font-sans min-h-screen">
 
       {/* Toggle Button */}
       {!open && (
@@ -70,7 +70,7 @@ export default function HomeMain() {
       </motion.aside>
 
       {/* Main Content */}
-      <div className="flex-1 w-full ml-0 md:ml-0">
+      <div className="flex-1 w-full ml-0 md:ml-0  bg-gradient-to-br from-white/60 via-white/70 to-blue-200/90 backdrop-brightness-90">
         <Element name="hero" className="scroll-mt-16">
           <HeroSection />
         </Element>

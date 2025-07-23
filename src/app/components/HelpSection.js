@@ -3,57 +3,70 @@
 import { motion } from "framer-motion";
 
 export default function HelpSection() {
+  const financeCompanies = [
+    {
+      name: "Mahindra Finance",
+      logo: "https://www.chittorgarh.net/images/ipo/mahindra_finance_logo.jpg",
+    },
+    {
+      name: "Bajaj Finance",
+      logo: "https://www.eqimg.com/images/2024/1280x720/09022024-image7-equitymaster.jpg",
+    },
+    {
+      name: "Cholamandalam",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_wucde8S6RZikxiYe9K3hF1O9aVGfxMZE3w&s",
+    },
+    {
+      name: "SK Finance",
+      logo: "https://play-lh.googleusercontent.com/Ku5KK3j_QTnR8Qnt3_3BuENKYahbSl3w9uZ78QFUIepWMMIGT44RisqX9KJRqBT4ITk=w600-h300-pc0xffffff-pd",
+    },
+    {
+      name: "SBI Finance",
+      logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw28mI7O1uCteo2R8rntjsdPgBCGqjupq0PQ&s",
+    },
+  ];
+
+  const duplicatedList = [...financeCompanies, ...financeCompanies];
+
   return (
-    <section className="bg-gradient-to-r from-blue-50 to-blue-50 py-16 px-6 md:px-20">
-      {/* Section Title */}
+    <section className="bg-white py-10 md:px-20">
+      {/* Title */}
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="text-3xl md:text-4xl font-bold text-center text-blue-900 mb-12"
+        className="text-4xl font-bold text-center text-blue-900 mb-10"
       >
-        How Can We Help You?
+        Trusted Finance Partners
       </motion.h2>
 
-      {/* Card Container */}
-      <div className="flex flex-col md:flex-row gap-8 justify-center items-stretch">
-        {/* Card 1 - Finance Check */}
+      {/* Full-width logo slider */}
+      <div className="relative overflow-hidden w-full">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-2xl shadow-lg p-8 w-full md:w-1/2 text-center hover:shadow-xl transition-all duration-300"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            duration: 40,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="flex gap-16 whitespace-nowrap w-max"
         >
-          <h3 className="text-xl font-semibold text-slate-800 mb-3">
-            Free Finance Check
-          </h3>
-          <p className="text-gray-600 mb-6 text-sm md:text-base">
-            Get pre-approved before you shop — fast and easy, no credit impact.
-          </p>
-          <button className="bg-blue-900 hover:bg-blue-800 text-white px-6 py-2 rounded-lg text-sm font-semibold transition">
-            Check Now
-          </button>
-        </motion.div>
-
-        {/* Card 2 - Sell Your Car */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="bg-white border rounded-2xl shadow-lg p-8 w-full md:w-1/2 text-center hover:shadow-xl transition-all duration-300"
-        >
-          <h3 className="text-xl font-semibold text-slate-800 mb-3">
-            Sell Your Car at the Best Price!
-          </h3>
-          <p className="text-gray-600 mb-6 text-sm md:text-base">
-            Quick and easy — get top value for any car.
-          </p>
-          <button className="bg-green-600 hover:bg-green-500 text-white px-6 py-2 rounded-lg text-sm font-semibold transition">
-            Sell Now
-          </button>
+          {duplicatedList.map((company, index) => (
+            <div
+              key={index}
+              className="flex flex-col items-center justify-center w-36 md:w-48"
+            >
+              <img
+                src={company.logo}
+                alt={company.name}
+                className="h-16 w-auto object-contain transition duration-300"
+              />
+              <p className="text-sm mt-2 text-center text-blue-800 font-medium">
+                {company.name}
+              </p>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 export default function ContactUs() {
     return (
-      <div className="min-h-screen bg-gray-50 px-6 py-12 md:px-24">
+      <div className="min-h-screen bg-white px-6 py-12 md:px-24">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Contact Us</h1>
   
         <div className="bg-white shadow rounded-xl p-6 md:p-10">

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Buy & Sell Second-Hand Cars | Maa Bahawani Car Bazar",
+  title: "MBC | Buy & Sell Second-Hand Cars | Maa Bahawani Car Bazar",
   description:
     "Find trusted second-hand cars at the best prices in India. Browse verified used car listings from top brands. Buy or sell now at Maa Bahawani Car Bazar.",
   keywords: [
@@ -23,20 +23,23 @@ export const metadata = {
     "used cars",
     "buy used cars",
     "sell car online",
+    "maa bhawani car haldwani",
+    "maa bhawani car bazar haldwani",
+    "nanital",
     "Maa Bahawani Car Bazar",
     "car bazar",
     "used cars India",
   ],
-  metadataBase: new URL("https://secondhand-cars-tdcj.vercel.app"),
+  metadataBase: new URL("https://www.maabhawanicarbazar.com"),
   openGraph: {
     title: "Maa Bahawani Car Bazar - Verified Second-Hand Cars",
     description:
       "Buy & sell second-hand cars from trusted dealers. Top deals on used cars from Maruti, Hyundai, Tata, Honda and more.",
-    url: "https://secondhand-cars-tdcj.vercel.app",
+    url: "https://www.maabhawanicarbazar.com/",
     siteName: "Maa Bahawani Car Bazar",
     images: [
       {
-        // url: "/og-image.jpg", // place an image in public folder
+        url: "../logo.png", // place an image in public folder
         width: 1200,
         height: 630,
         alt: "Maa Bahawani Car Bazar - Used Cars",

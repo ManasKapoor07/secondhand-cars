@@ -10,6 +10,8 @@ import HelpSection from "./components/HelpSection";
 import HeroSection from "./components/Hero";
 import ContactUs from "./components/Contact";
 import FaqSection from "./components/FaqSection";
+import logo from "../logo.png";
+import Image from "next/image";
 
 const menuItems = [
   { name: "Home", to: "hero" },
@@ -17,7 +19,6 @@ const menuItems = [
   { name: "Cars", to: "cars" },
   { name: "FAQ", to: "faq" },
   { name: "Contact", to: "contact" },
-
 ];
 
 export default function HomeMain() {
@@ -25,10 +26,13 @@ export default function HomeMain() {
     <div className="font-sans bg-white text-gray-900 min-h-screen">
       {/* Top Navigation Bar */}
       <header className="w-full shadow-sm fixed top-0 z-50 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold text-sky-600 tracking-wide">
-            Maa Bhawani Car Bazar
-          </h1>
+        <div className="max-w-7xl mx-auto px-2 sm:px-2 lg:px-2 flex justify-between items-center">
+          <div className="flex items-center gap-2">
+            <Image src={logo} alt="Logo" className="w-16 h-16 object-contain" />
+            <h1 className="hidden sm:block text-base font-semibold text-gray-600 tracking-wide capitalize">
+              Maa Bhawani Car Bazar
+            </h1>
+          </div>
           <nav className="hidden sm:flex gap-6 text-sm font-medium text-gray-700">
             {menuItems.map((item, idx) => (
               <ScrollLink

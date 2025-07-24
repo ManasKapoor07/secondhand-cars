@@ -23,7 +23,7 @@ const menuItems = [
 
 export default function HomeMain() {
   return (
-    <div className="font-sans bg-white text-gray-900 min-h-screen">
+    <div className="font-sans bg-white text-gray-900 min-h-screen" >
       {/* Top Navigation Bar */}
       <header className="w-full shadow-sm fixed top-0 z-50 bg-white">
         <div className="max-w-7xl mx-auto px-2 sm:px-2 lg:px-2 flex justify-between items-center">

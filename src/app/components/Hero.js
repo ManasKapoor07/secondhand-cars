@@ -22,7 +22,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full min-h-[90vh] flex items-center justify-center px-4 sm:px-6 overflow-hidden font-sans bg-gradient-to-br from-sky-50 to-white">
+    <section className="relative w-full min-h-[100vh]  flex items-center justify-center px-4 sm:px-6 overflow-hidden font-sans bg-gradient-to-br from-sky-50 to-white">
       {/* Background Overlay */}
       <div className="absolute inset-0 z-0">
         <motion.div

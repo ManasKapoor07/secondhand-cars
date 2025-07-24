@@ -15,7 +15,7 @@ const allApi = apiReducer.injectEndpoints({
     }),
     sendWhatsapp: builder.mutation({
       query: (formData) => ({
-        url: "/api/send-to-whatsapp",
+        url: "/api/send-to-email",
         method: "POST",
         body: formData,
       }),

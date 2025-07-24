@@ -44,7 +44,7 @@ export default function HeroSection() {
       </div>
 
       {/* Foreground Content */}
-      <div className="relative z-10 max-w-screen-xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 py-2 px-4">
+      <div className="relative z-10 max-w-screen-xl w-full grid grid-cols-1 md:grid-cols-2 items-center gap-10 py-20 px-4">
         <div className="text-left">
           <motion.p
             initial={{ opacity: 0, y: -10 }}
